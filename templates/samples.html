@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card shadow fade-in">
+    <div class="card-header">
+        <h3 class="mb-0">Sample Images</h3>
+    </div>
+    <div class="card-body">
+        <div class="row g-4">
+            <div class="col-md-6">
+                <h4 class="mb-4">MRI Samples</h4>
+                <div class="row g-3">
+                    {% for i in range(3) %}
+                    <div class="col-12">
+                        <div class="image-container">
+                            <img src="{{ url_for('static', filename='images/samples/mri_' ~ loop.index|string ~ '.jpg') }}"
+                                class="img-fluid rounded" alt="MRI Sample {{ loop.index }}">
+
+                            <a href="{{ url_for('static', filename='images/samples/mri_' ~ loop.index|string ~ '.jpg') }}"
+                                class="btn btn-primary btn-sm position-absolute bottom-0 end-0 m-3" download>
+                                <i class="fas fa-download me-2"></i>Download
+                            </a>
+
+
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <h4 class="mb-4">CT Scan Samples</h4>
+                <div class="row g-3">
+                    {% for i in range(3) %}
+                    <div class="col-12">
+                        <div class="image-container">
+                            <img src="{{ url_for('static', filename='images/samples/ct_' ~ loop.index|string ~ '.png') }}" 
+                            class="img-fluid rounded" alt="CT Sample {{ loop.index }}">
+                       
+                       <a href="{{ url_for('static', filename='images/samples/ct_' ~ loop.index|string ~ '.png') }}" 
+                          class="btn btn-primary btn-sm position-absolute bottom-0 end-0 m-3" download>
+                           <i class="fas fa-download me-2"></i>Download
+                       </a>
+                       
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

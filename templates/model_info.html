@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+
+{% block title %}Model Information{% endblock %}
+
+{% block content %}
+<div class="card shadow fade-in">
+    <div class="card-header" style="background-color: #f8f9fa; padding: 15px;">
+        <h3 class="mb-0 text-center" style="font-size: 32px; font-weight: bold;">
+            <i class="fas fa-brain me-2"></i>
+            CT-MRI Translation Model
+        </h3>
+    </div>
+    <div class="card-body" style="font-size: 18px; line-height: 1.6;">
+        <!-- Model Architecture Section -->
+        <section class="mb-5 slide-up" style="font-size: 20px; margin-bottom: 40px;">
+            <h4 class="section-title" style="font-size: 24px; font-weight: bold;">
+                <i class="fas fa-network-wired me-2"></i>
+                Model Architecture
+            </h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title" style="font-size: 22px; font-weight: bold;">Generator Network</h5>
+                            <ul class="feature-list" style="font-size: 18px;">
+                                <li>Encoder: 7-stage downsampling with residual blocks</li>
+                                <li>Decoder: 7-stage upsampling with skip connections</li>
+                                <li>Latent Space: 256-dimensional VAE</li>
+                                <li>Activation: LeakyReLU (α=0.2)</li>
+                                <li>Normalization: Group Normalization</li>
+                                <li>Output: Sigmoid activation for 256x256x3 images</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title" style="font-size: 22px; font-weight: bold;">Discriminator Network</h5>
+                            <ul class="feature-list" style="font-size: 18px;">
+                                <li>Type: Multi-scale PatchGAN</li>
+                                <li>Scales: 4 levels of feature discrimination</li>
+                                <li>Activation: LeakyReLU (α=0.2)</li>
+                                <li>Output: Real/Fake classification at multiple scales</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Loss Functions Section -->
+        <section class="mb-5 slide-up" style="font-size: 20px; margin-bottom: 40px;">
+            <h4 class="section-title" style="font-size: 24px; font-weight: bold;">
+                <i class="fas fa-balance-scale me-2"></i>
+                Loss Functions
+            </h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title" style="font-size: 22px; font-weight: bold;">Generator Loss</h5>
+                            <ul class="feature-list" style="font-size: 18px;">
+                                <li>Adversarial Loss: LSGAN (Least Squares GAN)</li>
+                                <li>Cycle Consistency Loss: L1 norm (λ=10)</li>
+                                <li>KL Divergence: Regularization for latent space (λ=0.5)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title" style="font-size: 22px; font-weight: bold;">Discriminator Loss</h5>
+                            <ul class="feature-list" style="font-size: 18px;">
+                                <li>Real/Fake Loss: LSGAN (Least Squares GAN)</li>
+                                <li>Multi-scale Loss: Aggregated across 4 scales</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Training Progress Section -->
+        <section class="mb-5 slide-up" style="font-size: 20px; margin-bottom: 40px;">
+            <h4 class="section-title" style="font-size: 24px; font-weight: bold;">
+                <i class="fas fa-chart-line me-2"></i>
+                Training Progress
+            </h4>
+            <div class="row">
+                {% for i in range(1, 6) %}
+                <div class="col-md-4 mb-3">
+                    <div class="image-container">
+                        <img src="{{ url_for('static', filename='progress/epoch_' ~ i ~ '_batch_0.png') }}" 
+                             alt="Training Progress Epoch {{ i }}" 
+                             class="img-fluid">
+                        <p class="text-center mt-2" style="font-size: 18px;">Epoch {{ i }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- Hyperparameters Section -->
+        <section class="mb-5 slide-up" style="font-size: 20px; margin-bottom: 40px;">
+            <h4 class="section-title" style="font-size: 24px; font-weight: bold;">
+                <i class="fas fa-cogs me-2"></i>
+                Hyperparameters
+            </h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title" style="font-size: 22px; font-weight: bold;">Training Parameters</h5>
+                            <ul class="feature-list" style="font-size: 18px;">
+                                <li>Epochs: 40+</li>
+                                <li>Batch Size: 1</li>
+                                <li>Learning Rate: 0.0001</li>
+                                <li>Weight Decay: 6e-8</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title" style="font-size: 22px; font-weight: bold;">Model Parameters</h5>
+                            <ul class="feature-list" style="font-size: 18px;">
+                                <li>Latent Dimension: 256</li>
+                                <li>Filters: 16 (base)</li>
+                                <li>Kernel Size: 3x3</li>
+                                <li>Image Shape: 256x256x3</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Performance Metrics Section -->
+        <section class="slide-up" style="font-size: 20px;">
+            <h4 class="section-title" style="font-size: 24px; font-weight: bold;">
+                <i class="fas fa-tachometer-alt me-2"></i>
+                Performance Metrics
+            </h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title" style="font-size: 22px; font-weight: bold;">Quantitative Metrics</h5>
+                            <ul class="feature-list" style="font-size: 18px;">
+                                <li>PSNR: 32.4 dB</li>
+                                <li>SSIM: 0.91</li>
+                                <li>FID Score: 18.7</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title" style="font-size: 22px; font-weight: bold;">Training Metrics</h5>
+                            <ul class="feature-list" style="font-size: 18px;">
+                                <li>Generator Loss: ~1.5 (final)</li>
+                                <li>Discriminator Loss: ~0.6 (final)</li>
+                                <li>Cycle Consistency Loss: ~0.2</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Add visible class to sections when they come into view
+    const sections = document.querySelectorAll('section');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+});
+</script>
+{% endblock %}

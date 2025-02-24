@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="hero-section text-center slide-up">
+    <h1 class="display-4 mb-4">Welcome to MedImage Translator</h1>
+    <p class="lead mb-5">AI-powered GAN model to convert MRI to CT and vice versa</p>
+    <a href="/try_now" class="btn btn-primary btn-lg">
+        <i class="fas fa-rocket me-2"></i>
+        Try Now
+    </a>
+</div>
+
+<div class="row mt-5 g-4">
+    <div class="col-md-4">
+        <div class="card h-100 fade-in">
+            <div class="card-body text-center">
+                <i class="fas fa-brain fa-3x mb-3" style="color: var(--primary-color)"></i>
+                <h3 class="card-title">Advanced AI</h3>
+                <p class="card-text">State-of-the-art GAN architecture for accurate medical image translation</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 fade-in" style="animation-delay: 0.2s">
+            <div class="card-body text-center">
+                <i class="fas fa-bolt fa-3x mb-3" style="color: var(--primary-color)"></i>
+                <h3 class="card-title">Real-time Processing</h3>
+                <p class="card-text">Fast and efficient image translation with immediate results</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 fade-in" style="animation-delay: 0.4s">
+            <div class="card-body text-center">
+                <i class="fas fa-shield-alt fa-3x mb-3" style="color: var(--primary-color)"></i>
+                <h3 class="card-title">Secure Processing</h3>
+                <p class="card-text">Your medical images are processed securely and never stored</p>
+            </div>
+        </div>
+    </div>
+</div>
+<
+
+<div class="hero-section text-center slide-up">
+    <h2 class="display-4 mb-4">About</h2>
+    <p class="lead mb-5">MRI and CT are most widely used medical imaging modalities. It is often necessary to acquire multi-modality images for diagnosis and treatment such as radiotherapy planning. However, multi-modality imaging is not only costly but also introduces misalignment between MRI and CT images. To address this challenge, computational conversion is a viable approach between MRI and CT images, especially from MRI to CT images.  We propose to use an emerging deep learning framework called diffusion and score-matching models in this context.    .</p>
+
+</div>
+{% endblock %}
