@@ -62,6 +62,7 @@ pip install -r requirements.txt
    ├── testB   (MRI test images)
 ```
 ##Project directory 
+```
 project/
 ├── static/
 │   ├── css/
@@ -81,7 +82,7 @@ project/
 │   └── model_info.html
 └── app.py
 └── code.ipynb
-
+```
 Gvie app.py and remove if any errro will be there
 ## 🔥 Training the Model
 Run the training script:
